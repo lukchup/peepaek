@@ -11,7 +11,6 @@
 คุณคือ "พี่แปก" — พี่แนะแนวการศึกษาต่อที่เข้าใจน้องๆ ที่จบ ปวส. ดี
 พูดภาษาไทยเป็นกันเอง ใช้คำว่า "พี่แปก" แทนตัวเอง และ "น้อง" แทนผู้ถาม
 ตอบกระชับ ชัดเจน เป็นมิตร ไม่เป็นทางการจนเกินไป ใส่ emoji เล็กน้อยให้น่าอ่าน
-
 คุณจะแสดงความเห็นใจและให้กำลังใจน้องๆ ที่กังวลเรื่องการเรียนต่อ และให้คำแนะนำที่เป็นประโยชน์และตรงประเด็นที่สุดเท่าที่จะทำได้ 
 พี่แปกจะเป็นผู้ช่วยที่ดีและให้คำตอบที่ถูกต้องที่สุดเท่าที่จะทำได้
 (ย้ำว่าคุณคือ"พี่แปก"ไม่ใช่ "พี่แปรก" หรือ "พี่แปลก" )
@@ -22,7 +21,6 @@
 - ช่วยเลือกสาขาที่เหมาะกับสายที่จบมา
 - ให้กำลังใจน้องที่กังวลเรื่องการเรียนต่อ
 - ตอบคำถามทั่วไปเกี่ยวกับชีวิตมหาวิทยาลัย ค่าใช้จ่าย ทุน
-
 ถ้าถามเรื่องที่ไม่รู้จริงๆ ให้บอกตรงๆ ว่าไม่แน่ใจ 
 และแนะนำให้ไปเช็คกับมหาวิทยาลัยโดยตรงครับ/ค่ะ
 
@@ -96,7 +94,9 @@
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;">
                         <button class="ai-chat-clear" onclick="clearAIChat()" title="ล้างประวัติแชท">🗑️</button>
-                        <button class="ai-chat-close" onclick="toggleAIChat()">✕</button>
+                        <button class="ai-chat-close" onclick="toggleAIChat()" title="พับลง">
+                            <span style="font-size:12px;margin-right:4px;">พับลง</span>⌄
+                        </button>
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@
                         ส่ง ➤
                     </button>
                 </div>
-                <div class="ai-chat-footer">ขับเคลื่อนโดย google gemini · ข้อมูลอาจมีการเปลี่ยนแปลง</div>
+                <div class="ai-chat-footer">ขับเคลื่อนโดย Google Gemini · ข้อมูลอาจมีการเปลี่ยนแปลง</div>
             </div>
         `;
 
@@ -370,17 +370,24 @@
                 align-items: center; justify-content: center;
             }
 
-            /* ===== Chat Box ===== */
+            /* ===== Chat Box (เต็มหน้าจอ) ===== */
             .ai-chat-box {
-                position: absolute; bottom: 60px; right: 0;
-                width: 360px; max-height: 520px;
-                background: #fff; border-radius: 20px;
+                position: fixed;
+                bottom: 0; right: 0;
+                width: 100vw; height: 100vh;
+                background: #fff;
+                border-radius: 0;
                 box-shadow: 0 8px 40px rgba(0,0,0,0.18);
                 display: flex; flex-direction: column;
                 overflow: hidden;
-                opacity: 0; transform: translateY(12px) scale(0.97);
+                opacity: 0; transform: translateY(100%);
                 pointer-events: none;
-                transition: opacity 0.25s ease, transform 0.25s ease;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                z-index: 99998;
+            }
+            .ai-chat-box.open {
+                opacity: 1; transform: translateY(0);
+                pointer-events: all;
             }
             .ai-chat-box.open {
                 opacity: 1; transform: translateY(0) scale(1);
@@ -391,7 +398,7 @@
             .ai-chat-header {
                 display: flex; align-items: center; justify-content: space-between;
                 background: #111; color: #fff;
-                padding: 14px 16px; flex-shrink: 0;
+                padding: 14px 20px; flex-shrink: 0;
             }
             .ai-chat-header-info  { display: flex; align-items: center; gap: 10px; }
             .ai-chat-avatar       { font-size: 26px; }
@@ -412,9 +419,12 @@
 
             /* ===== Messages ===== */
             .ai-chat-messages {
-                flex: 1; overflow-y: auto; padding: 16px 12px;
-                display: flex; flex-direction: column; gap: 12px;
+                flex: 1; overflow-y: auto;
+                padding: 20px;
+                display: flex; flex-direction: column; gap: 16px;
                 scrollbar-width: thin; scrollbar-color: #e0e0e0 transparent;
+                max-width: 800px; width: 100%; margin: 0 auto;
+                box-sizing: border-box;
             }
             .ai-chat-messages::-webkit-scrollbar       { width: 4px; }
             .ai-chat-messages::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
@@ -469,9 +479,11 @@
 
             /* ===== Input Area ===== */
             .ai-chat-input-area {
-                display: flex; gap: 8px; align-items: center;
-                padding: 10px 12px;
+                display: flex; gap: 10px; align-items: center;
+                padding: 14px 20px;
                 border-top: 1px solid #f0f0f0; flex-shrink: 0;
+                max-width: 800px; width: 100%; margin: 0 auto;
+                box-sizing: border-box;
             }
             .ai-chat-input {
                 flex: 1; border: 1.5px solid #e8e8e8; border-radius: 12px;
