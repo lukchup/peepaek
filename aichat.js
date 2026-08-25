@@ -160,7 +160,7 @@
                         <button class="ai-sidebar-toggle" onclick="toggleSidebar()" title="ประวัติแชท">☰</button>
                         <div class="ai-chat-avatar">🤖</div>
                         <div>
-                            <div class="ai-chat-name">พี่แปก AI</div>
+                            <div class="ai-chat-name">พี่แปก</div>
                             <div class="ai-chat-status" id="aiChatStatus">● พร้อมตอบคำถาม</div>
                         </div>
                     </div>
