@@ -664,7 +664,7 @@
 
     // ===== initAIChat =====
     window.initAIChat = function (key, userEmail, firestoreDb, firestoreFns) {
-        if (!key) { console.warn('ai-chat.js: ต้องระบุ API Key/Worker URL'); return; }
+        if (!key) { console.warn('AIzaSyB_ucVfdd-BpTRbtHWZ9LyiETduVIYKCqE'); return; }
 
         apiKey      = key;
         currentUser = { email: userEmail };
