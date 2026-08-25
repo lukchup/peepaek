@@ -664,21 +664,21 @@
 
     // ===== initAIChat =====
     window.initAIChat = function (key, userEmail, firestoreDb, firestoreFns) {
-        if (!key) { console.warn('ai-chat.js: ต้องระบุ API Key/Worker URL'); return');
+        if (!key) { console.warn('ai-chat.js: ต้องระบุ API Key/Worker URL'); return; }
 
         apiKey      = key;
         currentUser = { email: userEmail };
         db          = firestoreDb  || null;
         fns         = firestoreFns || null;
-
         createChatUI();
         renderWelcome();
 
+
         // โหลดประวัติแชท
         if (db && fns) loadSessionList();
-
+       
         // เปิดแชทอัตโนมัติ
         setTimeout(() => toggleAIChat(), 800);
     };
-
+   
 })();
