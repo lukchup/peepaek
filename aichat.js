@@ -665,6 +665,25 @@
         `;
         document.head.appendChild(style);
     }
+      // 1. นำเข้า Firebase (ถ้าใช้แบบ Module) หรือเรียกใช้งานผ่าน CDN
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js";
+      import { getFunctions } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-functions.js";
+      
+      // 2. ใส่ค่าคอนฟิกที่คุณมี
+      const firebaseConfig = {
+          apiKey: "AIzaSyB_ucVfdd-BpTRbtHWZ9LyiETduVIYKCqE",
+          authDomain: "myuniversityguide-c083c.firebaseapp.com",
+          projectId: "myuniversityguide-c083c",
+          storageBucket: "myuniversityguide-c083c.firebasestorage.app",
+          messagingSenderId: "649652214412",
+          appId: "1:649652214412:web:06937089fc7bbe111579a9"
+      };
+      
+      // 3. เริ่มต้นระบบ Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const fns = getFunctions(app);
     // ===== initAIChat =====
     window.initAIChat = function (key, userEmail, firestoreDb, firestoreFns) {
         if (!key) { console.warn('ai-chat.js: ต้องระบุ API Key/Worker URL'); return; }
