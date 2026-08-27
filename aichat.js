@@ -665,17 +665,22 @@
         `;
         document.head.appendChild(style);
     }
-    // ===== initAIChat =====
-    window.initAIChat = function (key, userEmail, firestoreDb, firestoreFns) {
-        if (!key) { console.warn('ai-chat.js: ต้องระบุ API Key/Worker URL'); return; }
+    /* ============================================================
+   initAIChat — เรียกจาก global.js หลัง login
+   workerUrl   = Cloudflare Worker URL
+   userEmail   = email ของ user
+   firestoreDb = Firestore instance
+   firestoreFns= { collection, addDoc, query, orderBy,
+                   getDocs, doc, getDoc, updateDoc, serverTimestamp }
+============================================================ */
+window.initAIChat = function (workerUrl, userEmail, firestoreDb, firestoreFns) {
+    apiKey      = workerUrl;
+    currentUser = { email: userEmail };
+    db          = firestoreDb;
+    fns         = firestoreFns;
 
-        apiKey      = key;
-        currentUser = { email: userEmail };
-        db          = firestoreDb  || null;
-        fns         = firestoreFns || null;
-
-        createChatUI();
-        renderWelcome();
+    createChatUI();
+    loadSessions();
 
         // โหลดประวัติแชท
         if (db && fns) loadSessionList();
